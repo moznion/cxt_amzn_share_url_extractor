@@ -1,0 +1,40 @@
+{
+  "name": "amzn_share_url_extractor",
+  "version": "0.0.1",
+  "description": "A Chrome extension to extract Amazon's share url and store it to clipboard",
+  "main": "js/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ./index.es",
+    "check": "npm test && npm run lint",
+    "clean": "rm -f js/*",
+    "build": "npm run clean && browserify index.es -o js/index.js -t babelify && browserify background.es -o js/background.js -t babelify",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moznion/cxt_amzn_share_url_extractor.git"
+  },
+  "keywords": [
+    "chrome",
+    "amazon"
+  ],
+  "author": "moznion",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/moznion/cxt_amzn_share_url_extractor/issues"
+  },
+  "homepage": "https://github.com/moznion/cxt_amzn_share_url_extractor",
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-stage-3": "^6.17.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.3.0",
+    "eslint": "^3.13.0"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.20.0",
+    "jquery": "^3.1.1"
+  }
+}
