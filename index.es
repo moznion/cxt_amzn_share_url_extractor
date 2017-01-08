@@ -1,10 +1,14 @@
+import "babel-polyfill";
 import jquery from "jquery";
-import 'babel-polyfill';
 
 const urlSelector = "#formInThePopUp > div.a-row > div > a";
 
 const wait = (msec) => {
-  return new Promise((done) => setTimeout(() => done(msec), msec));
+  return new Promise((done) => {
+    window.setTimeout(() => {
+      done(msec);
+    }, msec);
+  });
 };
 
 const scrape = async () => {
@@ -15,19 +19,19 @@ const scrape = async () => {
     return url;
   }
   return undefined;
-}
+};
 
-const scrapingGenerator = function* () {
+const scrapingGenerator = function *() {
   let i;
   for (i = 0; i < 20; i++) {
     yield scrape();
   }
-}
+};
 
 const extract = () => {
   const p = scrapingGenerator().next();
   if (p.done === true) {
-    alert('Failed to scrape amzn URL');
+    window.alert("Failed to scrape amzn URL");
     return;
   }
 
@@ -41,12 +45,13 @@ const extract = () => {
     });
 
     jquery(urlSelector).append(" <font color='green'>Copied!</font>");
-  }, (fail) => {
+  }, () => {
+    // Failed
     return extract();
   });
-}
+};
 
-jquery('#swfText').click(() => {
+jquery("#swfText").click(() => {
   extract();
 });
 
