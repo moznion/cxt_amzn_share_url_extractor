@@ -1,14 +1,16 @@
 import jquery from "jquery";
 import 'babel-polyfill';
 
+const urlSelector = "#formInThePopUp > div.a-row > div > a";
+
 const wait = (msec) => {
   return new Promise((done) => setTimeout(() => done(msec), msec));
 };
 
 const scrape = async () => {
-  await wait(200);
+  await wait(250);
 
-  const url = jquery('#formInThePopUp > div.a-row > div > a').text();
+  const url = jquery(urlSelector).text();
   if (url !== undefined && url !== "") {
     return url;
   }
@@ -37,6 +39,8 @@ const extract = () => {
     chrome.runtime.sendMessage({
       text: url
     });
+
+    jquery(urlSelector).append(" <font color='green'>Copied!</font>");
   }, (fail) => {
     return extract();
   });
